@@ -5,4 +5,10 @@ A Genichiro focussed mod, currently barebones-adding new combos to his regular a
 Every release will fix some bugs/add new moves.
 Currently, the mod also adds in a changed spin combo attack for Owl(Father).<br>
 Check releases for more information.
+<br>
+
+
+
+
+https://user-images.githubusercontent.com/68727041/151699425-67055dad-3f8f-429e-b5b9-ea452cfd8d16.mp4
 
