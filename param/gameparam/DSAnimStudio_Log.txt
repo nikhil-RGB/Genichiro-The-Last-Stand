@@ -1,0 +1,29 @@
+
+
+[2022.02.13 00:06:29][WARNING] Unable to find the file '<Data Root>\mtd\allmaterialbnd.mtdbnd.dcx' in the main data root directory ('C:\Games\Sekiro - Shadows Die Twice\mods\param') or the directory in which that one is located.
+
+
+[2022.02.13 00:06:29][ERROR] Fatal error encountered during background task 'TaeFileContainer_ANIBND':
+System.IO.DirectoryNotFoundException: Could not find a part of the path 'C:\Games\Sekiro - Shadows Die Twice\mods\mtd\allmaterialbnd.mtdbnd.dcx'.
+   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share)
+   at SoulsFormats.SoulsFile`1.Read(String path)
+   at DSAnimStudio.GameDataManager.LoadMTDBND() in C:\Users\Meowmaritus\GitHub\DSAnimStudio\DSAnimStudio\GameDataManager.cs:line 131
+   at DSAnimStudio.GameDataManager.Init(GameTypes gameType, String interroot, Boolean forceReload) in C:\Users\Meowmaritus\GitHub\DSAnimStudio\DSAnimStudio\GameDataManager.cs:line 153
+   at DSAnimStudio.TaeEditor.TaeFileContainer.CheckGameVersionForTaeInterop(String filePath) in C:\Users\Meowmaritus\GitHub\DSAnimStudio\DSAnimStudio\TaeEditor\TaeFileContainer.cs:line 284
+   at DSAnimStudio.TaeEditor.TaeFileContainer.<>c__DisplayClass41_0.<LoadFromPath>b__0(IProgress`1 innerProgress) in C:\Users\Meowmaritus\GitHub\DSAnimStudio\DSAnimStudio\TaeEditor\TaeFileContainer.cs:line 363
+   at DSAnimStudio.LoadingTaskMan.<>c__DisplayClass4_0.<DoLoadingTask>b__0(IProgress`1 progress) in C:\Users\Meowmaritus\GitHub\DSAnimStudio\DSAnimStudio\LoadingTaskMan.cs:line 139
+   at DSAnimStudio.LoadingTaskMan.LoadingTask.<>c__DisplayClass12_1.<.ctor>b__1() in C:\Users\Meowmaritus\GitHub\DSAnimStudio\DSAnimStudio\LoadingTaskMan.cs:line 47
+
+
+[2022.02.13 00:06:29][WARNING] Unable to find the file '<Data Root>\other\systex.tpf.dcx' in the main data root directory ('C:\Games\Sekiro - Shadows Die Twice\mods\param') or the directory in which that one is located.
+
+
+[2022.02.13 00:06:29][WARNING] Unable to find the file '<Data Root>\other\maptex.tpf.dcx' in the main data root directory ('C:\Games\Sekiro - Shadows Die Twice\mods\param') or the directory in which that one is located.
+
+
+[2022.02.13 00:06:29][WARNING] Unable to find the file '<Data Root>\other\decaltex.tpf.dcx' in the main data root directory ('C:\Games\Sekiro - Shadows Die Twice\mods\param') or the directory in which that one is located.
+
+
+[2022.02.13 00:06:29][WARNING] Unable to find the file '<Data Root>\parts\common_body.tpf.dcx' in the main data root directory ('C:\Games\Sekiro - Shadows Die Twice\mods\param') or the directory in which that one is located.

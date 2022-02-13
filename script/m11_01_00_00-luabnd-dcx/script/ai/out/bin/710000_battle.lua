@@ -16,6 +16,9 @@ Goal.Activate = function (arg0, arg1, arg2)
     local f2_local6 = arg1:GetSp(TARGET_SELF)
     local f2_local7 = arg1:GetNinsatsuNum()
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5025)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60000)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60001)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5021)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5026)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5029)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5030)
@@ -633,7 +636,7 @@ Goal.Act48 = function (arg0, arg1, arg2)
 end
 
 Goal.Interrupt = function (arg0, arg1, arg2)
-    local f26_local0 = arg1:GetSpecialEffectActivateInterruptType(0)
+    local SP_REAC = arg1:GetSpecialEffectActivateInterruptType(0)
     local f26_local1 = arg1:GetSpecialEffectInactivateInterruptType(0)
     local f26_local2 = arg1:GetDist(TARGET_ENE_0)
     local f26_local3 = arg1:GetRandam_Int(1, 100)
@@ -651,22 +654,38 @@ Goal.Interrupt = function (arg0, arg1, arg2)
         return true
     end
     if arg1:IsInterupt(INTERUPT_ActivateSpecialEffect) then
-        if f26_local0 == 3710020 then
+
+        if SP_REAC == 3710020 then
             arg1:SetNumber(0, 0)
             return true
-        elseif f26_local0 == 3710030 and arg1:HasSpecialEffectId(TARGET_SELF, 3710032) then
+        elseif SP_REAC == 5021 then
+            arg2:ClearSubGoal()
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3026, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3062, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+        elseif SP_REAC == 60000 then
+            arg2:ClearSubGoal()
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3010, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            if f26_local3>=40 then
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3025, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            else
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3067, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            end
+        elseif SP_REAC == 60001 then
+            arg2:ClearSubGoal()
+            arg2:AddSubGoal(GOAL_COMMON_AttackImmediateAction, 3, 3026, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+        elseif SP_REAC == 3710030 and arg1:HasSpecialEffectId(TARGET_SELF, 3710032) then
             arg2:ClearSubGoal()
             arg2:AddSubGoal(GOAL_COMMON_EndureAttack, 5, 3092, TARGET_ENE_0, 9999, 0)
             arg1:SetTimer(6, 50)
             return true
-        elseif f26_local0 == 5029 then
+        elseif SP_REAC == 5029 then
             return arg0.Damaged(arg1, arg2)
-        elseif f26_local0 == 5031 then
+        elseif SP_REAC == 5031 then
             if f26_local4 <= 1 and f26_local2 >= 4.1 then
                 arg2:ClearSubGoal()
                 arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 5, 3017, TARGET_ENE_0, 9999, 0)
             end
-        elseif f26_local0 == 3710050 then
+        elseif SP_REAC == 3710050 then
             if f26_local3 <= 50 and arg1:HasSpecialEffectId(TARGET_SELF, 200050) then
                 arg2:ClearSubGoal()
                 arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 5, 3023, TARGET_ENE_0, 9999, 0)
@@ -674,7 +693,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
                 arg2:ClearSubGoal()
                 arg2:AddSubGoal(GOAL_COMMON_SidewayMove, 4, TARGET_ENE_0, arg1:GetRandam_Int(0, 1), arg1:GetRandam_Int(30, 45), true, true, -1)
             end
-        elseif f26_local0 == 110620 then
+        elseif SP_REAC == 110620 then
             arg1:Replanning()
             return true
         end
@@ -684,9 +703,8 @@ Goal.Interrupt = function (arg0, arg1, arg2)
 
         else
             arg2:ClearSubGoal()
-            arg2:AddSubGoal(GOAL_COMMON_ComboAttackTunableSpin, 1, 3019, TARGET_ENE_0, 9999, 0, 0, 0, 0)
-            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 1, 3021, TARGET_ENE_0, 9999, 0, 0, 0, 0)
-            arg2:AddSubGoal(GOAL_COMMON_ComboFinal, 1, 3026, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3026, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3062, TARGET_ENE_0, 9999, 0, 0, 0, 0)
             return true
         end
     end
