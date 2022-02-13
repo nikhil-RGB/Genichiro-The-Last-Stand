@@ -15,6 +15,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     local f2_local5 = arg1:GetHpRate(TARGET_SELF)
     local f2_local6 = arg1:GetSp(TARGET_SELF)
     local f2_local7 = arg1:GetNinsatsuNum()
+    arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5003)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5025)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60000)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60001)
@@ -658,6 +659,14 @@ Goal.Interrupt = function (arg0, arg1, arg2)
         if SP_REAC == 3710020 then
             arg1:SetNumber(0, 0)
             return true
+        elseif SP_REAC == 5003 then
+            arg2:ClearSubGoal()
+            if f26_local3>40 then
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3043, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3025, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            else
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3062, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            end
         elseif SP_REAC == 5021 then
             arg2:ClearSubGoal()
             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3036, TARGET_ENE_0, 9999, 0, 0, 0, 0)
