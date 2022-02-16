@@ -16,6 +16,10 @@ Goal.Activate = function (arg0, arg1, arg2)
     local f2_local6 = arg1:GetSp(TARGET_SELF)
     local f2_local7 = arg1:GetNinsatsuNum()
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5003)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5004)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5005)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5006)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5007)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5025)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60000)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60001)
@@ -659,28 +663,96 @@ Goal.Interrupt = function (arg0, arg1, arg2)
         if SP_REAC == 3710020 then
             arg1:SetNumber(0, 0)
             return true
-        elseif SP_REAC == 5003 then
+        elseif SP_REAC == 5007 then --four arrow interrupt
             arg2:ClearSubGoal()
-            if f26_local3>40 then
-            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3043, TARGET_ENE_0, 9999, 0, 0, 0, 0)
-            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3025, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            if f26_local3>55 then
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3049, TARGET_ENE_0, 9999, 0, 0, 0, 0)--floating passage
             else
-            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3062, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3038, TARGET_ENE_0, 9999, 0, 0, 0, 0)--chasing slice
             end
-        elseif SP_REAC == 5021 then
+        elseif SP_REAC == 5006 then --elbow thrust
+            arg2:ClearSubGoal()
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3003, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3061, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            if f26_local3>35 then
+            local gap_close=arg1:GetRandam_Int(1, 100)
+            if gap_close>=70 then
+                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3049, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            elseif gap_close>=40 then
+                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3038, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            elseif gap_close>=15 then
+                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3019, TARGET_ENE_0, 9999, 0, 0, 0, 0)  
+            else
+                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3006, TARGET_ENE_0, 9999, 0, 0, 0, 0)  
+            end
+            else   
+                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3044, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            end   
+        elseif SP_REAC == 5004 then --mikiri interrupt
+            arg2:ClearSubGoal()
+            if f26_local3>70 then
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3022, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            elseif f26_local3>50 then
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3020, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            else
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3021, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            end
+        elseif SP_REAC == 5003 then --fp recoil
+            arg2:ClearSubGoal()
+            local distanceVAR=arg1:GetDist(TARGET_ENE_0)
+            local prob1=arg1:GetRandam_Int(1, 100)
+            if distanceVAR>4 then
+            if(prob1>40) then
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3038, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            else
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3019, TARGET_ENE_0, 9999, 0, 0, 0, 0)   
+            end
+            else
+            if f26_local3>=80 then
+                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3022, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            elseif f26_local3>=60 then
+                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3045, TARGET_ENE_0, 9999, 0, 0, 0, 0) 
+                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3044, TARGET_ENE_0, 9999, 0, 0, 0, 0) 
+            elseif f26_local3>=50 then
+                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3062, TARGET_ENE_0, 9999, 0, 0, 0, 0) 
+            else
+                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3002, TARGET_ENE_0, 9999, 0, 0, 0, 0)  
+            end
+        end
+  
+        elseif SP_REAC == 5021 or SP_REAC == 400200 then --knockback interrupt
             arg2:ClearSubGoal()
             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3036, TARGET_ENE_0, 9999, 0, 0, 0, 0)
             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3038, TARGET_ENE_0, 9999, 0, 0, 0, 0)
-        elseif SP_REAC == 60000 then
+        elseif SP_REAC == 60000 or SP_REAC == 5005  then --3019 or chasing slice follow up, respectively
             arg2:ClearSubGoal()
-            if f26_local3>=40 then
-                if f26_local3>=65 then
+            local chance1=arg1:GetRandam_Int(1, 100)
+            if  SP_REAC == 5005 and chance1 >= 30 then
+                local chance2=arg1:GetRandam_Int(1, 100);
+                if chance2>=30 then
+                    arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3026, TARGET_ENE_0, 9999, 0, 0, 0, 0)  
+                else
+                    arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3020, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+                end
+            else  
+            local probs=arg1:GetRandam_Int(1, 100)  
+            if f26_local3>=45 then
+                
                 arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3032, TARGET_ENE_0, 9999, 0, 0, 0, 0)
                 arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3034, TARGET_ENE_0, 9999, 0, 0, 0, 0) 
-                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3049, TARGET_ENE_0, 9999, 0, 0, 0, 0) 
-                else
-                    arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3022, TARGET_ENE_0, 9999, 0, 0, 0, 0) 
+                if probs>60 then
+                    arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3036, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+                    arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3044, TARGET_ENE_0, 9999, 0, 0, 0, 0)   
                 end
+                local chooseC=arg1:GetRandam_Int(1, 100)
+                if chooseC>=60 then
+                    arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3038, TARGET_ENE_0, 9999, 0, 0, 0, 0) 
+                elseif chooseC>=30 then
+                    arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3049, TARGET_ENE_0, 9999, 0, 0, 0, 0)   
+                else
+                    arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3006, TARGET_ENE_0, 9999, 0, 0, 0, 0) 
+                end
+               
             else
              if f26_local3>=20 then
              arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3010, TARGET_ENE_0, 9999, 0, 0, 0, 0)
@@ -691,11 +763,13 @@ Goal.Interrupt = function (arg0, arg1, arg2)
              else
              arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3022, TARGET_ENE_0, 9999, 0, 0, 0, 0)   
              end
-            else
+            elseif SP_REAC ==60000 then
                 arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3036, TARGET_ENE_0, 9999, 0, 0, 0, 0)
                 arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3038, TARGET_ENE_0, 9999, 0, 0, 0, 0)
-                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3020, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            else
+                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3021, TARGET_ENE_0, 9999, 0, 0, 0, 0)
             end
+        end
             end 
         elseif SP_REAC == 60001 then
             arg2:ClearSubGoal()
@@ -730,10 +804,14 @@ Goal.Interrupt = function (arg0, arg1, arg2)
         if arg1:HasSpecialEffectId(TARGET_SELF, 200051) and f26_local4 >= 2 then
 
         else
-            arg2:ClearSubGoal()
+            arg2:ClearSubGoal()--put anti-heal condition here
+            if f26_local2<=5 then
             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3026, TARGET_ENE_0, 9999, 0, 0, 0, 0)
-            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3062, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            else
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3038, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            end
             return true
+            
         end
     end
     return false
