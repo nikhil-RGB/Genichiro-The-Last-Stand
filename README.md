@@ -6,8 +6,6 @@ Every release will fix some bugs/add new moves.
 Currently, the mod also adds in a changed spin combo attack for Owl(Father).<br>
 Check releases for more information.
 <br>
-Fixed the Genichiro:Way of Tomoe animation glitch.
-<br>
 
 
 
