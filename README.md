@@ -1,4 +1,4 @@
-# Genichiro-The Rival
+# Genichiro-The Last Stand (Mod Series)
 ![ASSET-RIVAL](https://user-images.githubusercontent.com/68727041/156654767-8fc34447-96af-4242-b0d2-945085cba82c.png)
 
 <br>
