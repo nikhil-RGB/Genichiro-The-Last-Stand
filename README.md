@@ -8,4 +8,7 @@ I would highly recommend installing and playing the latest release <strong>only<
 <a href="https://github.com/nikhil-RGB/Genichiro-The-Last-Stand/releases">View Releases.</a>
 <br><br>
 <a href="https://youtu.be/a2vCLn9xS_E">Click here to watch a showcase of genichiro in action[Latest Release]</a>
+<br><br>
+<a href="https://www.nexusmods.com/sekiro/mods/973">View Nexus Mods page</a>
+
 
