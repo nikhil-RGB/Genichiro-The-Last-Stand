@@ -10,7 +10,7 @@ I would highly recommend installing and playing the latest release <strong>only<
 <br>
 <a href="https://youtu.be/a2vCLn9xS_E">Click here to watch a showcase of genichiro in action[Latest Release]</a>
 <br><br>
-<a href="https://www.nexusmods.com/sekiro/mods/973">View Nexus Mods page</a>
+<a href="https://www.nexusmods.com/sekiro/mods/973">View Nexus Mods page</a><br><br>
 <a href="https://www.youtube.com/watch?v=x1w4rqjQ-H0">Watch Promotional Video for Mod!</a>(cutscenes included)
 
 
