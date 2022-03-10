@@ -1502,7 +1502,9 @@ Goal.Interrupt = function (arg0, arg1, arg2)
             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3004, TARGET_ENE_0, 9999, 0, 0, 0, 0)--lightning Sakura Dance
             end
         else
-        arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3021, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+        arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3002, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+        arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3003, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+        arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3026, TARGET_ENE_0, 9999, 0, 0, 0, 0)
         end
         --end of mikiri interrupt
         

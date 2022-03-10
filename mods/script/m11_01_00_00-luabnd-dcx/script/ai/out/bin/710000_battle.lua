@@ -368,11 +368,9 @@ Goal.Act11 = function (arg0, arg1, arg2)
     local f10_local5 = 3
     local f10_local6 = 3
     Approach_Act_Flex(arg0, arg1, f10_local0, f10_local1, f10_local2, f10_local3, f10_local4, f10_local5, f10_local6)
-    arg1:AddSubGoal(GOAL_COMMON_ComboAttackTunableSpin, 10, 3002, TARGET_ENE_0, 6, 0)
-    arg1:AddSubGoal(GOAL_COMMON_ComboRepeat, 10, 3003, TARGET_ENE_0, 9999, 0, 0)
-    arg1:AddSubGoal(GOAL_COMMON_ComboRepeat, 10, 3009, TARGET_ENE_0, 9999, 0, 0)
-    arg1:AddSubGoal(GOAL_COMMON_ComboRepeat, 10, 3019, TARGET_ENE_0, 9999, 0, 0)
-    arg1:AddSubGoal(GOAL_COMMON_ComboFinal, 10, 3021, TARGET_ENE_0, 9999, 0, 0)
+    arg1:AddSubGoal(GOAL_COMMON_ComboAttackTunableSpin, 10, 3000, TARGET_ENE_0, 6, 0)
+    arg1:AddSubGoal(GOAL_COMMON_ComboRepeat, 10, 3001, TARGET_ENE_0, 9999, 0, 0)
+    arg1:AddSubGoal(GOAL_COMMON_ComboRepeat, 10, 3002, TARGET_ENE_0, 9999, 0, 0)
 end
 
 Goal.Act15 = function (arg0, arg1, arg2)
@@ -678,14 +676,25 @@ Goal.Interrupt = function (arg0, arg1, arg2)
             local distanceVAR=arg1:GetDist(TARGET_ENE_0)
             if distanceVAR>=4 then
             arg2:ClearSubGoal()
+            local choose=arg1:GetRandam_Int(1, 100)
+            if choose>=80 then
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3036, TARGET_ENE_0, 9999, 0, 0, 0, 0)    
             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3038, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            elseif choose>=50 then
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3014, TARGET_ENE_0, 9999, 0, 0, 0, 0)    
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3015, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            elseif  choose>=30 then
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3006, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            else
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3019, TARGET_ENE_0, 9999, 0, 0, 0, 0)           
+            end
             end
         elseif SP_REAC == 60009 then --fp main interrupt
             local inter=arg1:GetRandam_Int(1, 100)
             if arg1:GetDist(TARGET_ENE_0)>4 then
             inter=99
             end
-            if inter >=40 then
+            if inter >=20 then
             arg2:ClearSubGoal()
             local dist=arg1:GetDist(TARGET_ENE_0)
             if dist >=3 then
@@ -712,11 +721,13 @@ Goal.Interrupt = function (arg0, arg1, arg2)
         end
         
         elseif SP_REAC == 5007 then --four arrow interrupt
+            if arg1:GetRandam_Int(1,100)>10 then
             arg2:ClearSubGoal()
             if f26_local3>75 then
             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3049, TARGET_ENE_0, 9999, 0, 0, 0, 0)--floating passage--added hyper armour
             else
             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3038, TARGET_ENE_0, 9999, 0, 0, 0, 0)--chasing slice--added hyper armour 
+            end
             end
         elseif SP_REAC == 60007 then --3006 attack type follow up
             arg2:ClearSubGoal()
@@ -738,6 +749,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
             else
                 --do this
                 local subDec=arg1:GetRandam_Int(1,100)
+                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3029, TARGET_ENE_0, 9999, 0, 0, 0, 0)
                 if subDec>30 then
                     --do this
                     arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3029, TARGET_ENE_0, 9999, 0, 0, 0, 0)
@@ -764,6 +776,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
             if dist1>=4 then
                 arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3038, TARGET_ENE_0, 9999, 0, 0, 0, 0)
             end
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3029, TARGET_ENE_0, 9999, 0, 0, 0, 0)
             local decision2=arg1:GetRandam_Int(1,100)
             if decision2>65 then
             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3029, TARGET_ENE_0, 9999, 0, 0, 0, 0)
@@ -779,9 +792,11 @@ Goal.Interrupt = function (arg0, arg1, arg2)
                 if dec_mak1>85 then
                     arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3034, TARGET_ENE_0, 9999, 0, 0, 0, 0)
                 end
-                if dec_mak2>70 then
-                    arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3036, TARGET_ENE_0, 9999, 0, 0, 0, 0) 
-                end
+               
+                
+                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3036, TARGET_ENE_0, 9999, 0, 0, 0, 0) 
+                
+                    
                 if dec_mak3>60 then
                     arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3044, TARGET_ENE_0, 9999, 0, 0, 0, 0) 
                 end
@@ -821,6 +836,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
             if cancelAttck1>=62 then
             if arg1:GetRandam_Int(1, 100)>=18 then
             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3029, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3029, TARGET_ENE_0, 9999, 0, 0, 0, 0)
             end
             local chckA=arg1:GetRandam_Int(1, 100)
             if chckA>=50 then
@@ -853,7 +869,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
             elseif f26_local3>50 then
             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3026, TARGET_ENE_0, 9999, 0, 0, 0, 0)
             else
-            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3021, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3020, TARGET_ENE_0, 9999, 0, 0, 0, 0)
             end
         elseif SP_REAC == 5003 then --fp recoil
             arg2:ClearSubGoal()
@@ -892,14 +908,24 @@ Goal.Interrupt = function (arg0, arg1, arg2)
         arg2:AddSubGoal(GOAL_COMMON_AttackImmediateAction, 3, 3044, TARGET_ENE_0, 9999, 0, 0, 0, 0)
         elseif SP_REAC == 5021  then --knockback interrupt
             arg2:ClearSubGoal()
-            local makeDec=arg1:GetRandam_Int(1,100)
-            if makeDec>70 then
-            arg2:AddSubGoal(GOAL_COMMON_AttackImmediateAction, 3, 3036, TARGET_ENE_0, 9999, 0, 0, 0, 0)
-            arg2:AddSubGoal(GOAL_COMMON_AttackImmediateAction, 3, 3049, TARGET_ENE_0, 9999, 0, 0, 0, 0)
-            elseif makeDec>40 then
-            arg2:AddSubGoal(GOAL_COMMON_AttackImmediateAction, 3, 3038, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            local makeDec=arg1:GetDist(TARGET_ENE_0)
+            if makeDec>=3 then
+            local choose=arg1:GetRandam_Int(1, 100)
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3036, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            if choose>=70 then
+                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3038, TARGET_ENE_0, 9999, 0, 0, 0, 0)  
+            elseif choose>=50 then
+                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3019, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            elseif choose>=30 then
+                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3014, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3015, TARGET_ENE_0, 9999, 0, 0, 0, 0)
             else
-                arg2:AddSubGoal(GOAL_COMMON_AttackImmediateAction, 3, 3006, TARGET_ENE_0, 9999, 0, 0, 0, 0)   
+                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3006, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            end
+            else
+                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3027, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3014, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3015, TARGET_ENE_0, 9999, 0, 0, 0, 0)
             end
         elseif SP_REAC == 60000 or SP_REAC == 5005 then --3019 or chasing slice follow up, respectively
             arg2:ClearSubGoal()
@@ -919,12 +945,14 @@ Goal.Interrupt = function (arg0, arg1, arg2)
                 local he= arg1:GetRandam_Int(1, 100)
                 if he>45 then
                 arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3032, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3034, TARGET_ENE_0, 9999, 0, 0, 0, 0) 
                 else
                 arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3029, TARGET_ENE_0, 9999, 0, 0, 0, 0)
-                end
                 if decisionMAKER>=50 then
                 arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3034, TARGET_ENE_0, 9999, 0, 0, 0, 0) 
                 end
+                end
+                
                 if decisionMAKER>=70 then
                 arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3036, TARGET_ENE_0, 9999, 0, 0, 0, 0)
                 end
