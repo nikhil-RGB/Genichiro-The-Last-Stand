@@ -17,6 +17,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5004)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60000)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60011)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60012)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60007)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5025)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5026)
@@ -1509,6 +1510,10 @@ Goal.Interrupt = function (arg0, arg1, arg2)
         --end of mikiri interrupt
         
     --3006 type attack follow up attack
+    elseif f49_local0  == 60012 then
+        arg2:ClearSubGoal()
+        
+
     elseif f49_local0  == 60007 then --3006 attack type follow up
         arg2:ClearSubGoal()
         local main_dec=arg1:GetRandam_Int(1,100) 
