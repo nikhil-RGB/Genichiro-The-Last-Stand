@@ -18,6 +18,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60000)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60011)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60012)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60013)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60015)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60007)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5025)
@@ -1495,13 +1496,13 @@ Goal.Interrupt = function (arg0, arg1, arg2)
         arg2:ClearSubGoal()
         local f26_local3=arg1:GetRandam_Int(1,100)
         if f26_local3>70 then
-        arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3022, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+        arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3046, TARGET_ENE_0, 9999, 0, 0, 0, 0)
         elseif f26_local3>50 then
             local decisionS=arg1:GetRandam_Int(1,100) 
             if decisionS >=50 then
             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3026, TARGET_ENE_0, 9999, 0, 0, 0, 0)
             else
-            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3004, TARGET_ENE_0, 9999, 0, 0, 0, 0)--lightning Sakura Dance
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3086, TARGET_ENE_0, 9999, 0, 0, 0, 0)--lightning Sakura Dance
             end
         else
         arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3002, TARGET_ENE_0, 9999, 0, 0, 0, 0)
@@ -1509,6 +1510,9 @@ Goal.Interrupt = function (arg0, arg1, arg2)
         arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3026, TARGET_ENE_0, 9999, 0, 0, 0, 0)
         end
         --end of mikiri interrupt
+    elseif f49_local0==60013 then
+        arg2:ClearSubGoal()
+        arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3085, TARGET_ENE_0, 9999, 0, 0, 0, 0)
     elseif f49_local0==60015 then
         arg2:ClearSubGoal()
         arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3021, TARGET_ENE_0, 9999, 0, 0, 0, 0)
