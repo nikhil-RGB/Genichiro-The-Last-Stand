@@ -985,7 +985,7 @@ Goal.Act29 = function (arg0, arg1, arg2)
     local f31_local7 = 0
     local f31_local8 = 0
     arg1:AddSubGoal(GOAL_COMMON_AttackTunableSpin, 10, 3016, TARGET_ENE_0, 9999, f31_local7, f31_local8, 0, 0)
-    arg1:AddSubGoal(GOAL_COMMON_ComboFinal, 10, 3026, TARGET_ENE_0, 9999, f31_local7, f31_local8, 0, 0)
+    arg1:AddSubGoal(GOAL_COMMON_ComboFinal, 10, 3087, TARGET_ENE_0, 9999, f31_local7, f31_local8, 0, 0)
     arg0:SetTimer(0, 5)
     if arg0:GetNumber(10) == 0 then
         arg0:SetNumber(10, 1)
@@ -1501,8 +1501,10 @@ Goal.Interrupt = function (arg0, arg1, arg2)
             local decisionS=arg1:GetRandam_Int(1,100) 
             if decisionS >=50 then
             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3026, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            elseif decisionS>=30 then
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3086, TARGET_ENE_0, 9999, 0, 0, 0, 0)--sakura slam 
             else
-            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3086, TARGET_ENE_0, 9999, 0, 0, 0, 0)--lightning Sakura Dance
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3022, TARGET_ENE_0, 9999, 0, 0, 0, 0)      
             end
         else
         arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3002, TARGET_ENE_0, 9999, 0, 0, 0, 0)
@@ -1529,11 +1531,14 @@ Goal.Interrupt = function (arg0, arg1, arg2)
         elseif dec>60 then
             arg2:ClearSubGoal()
             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3030, TARGET_ENE_0, 9999, 0, 0, 0, 0)
-            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3032, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3031, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3086, TARGET_ENE_0, 9999, 0, 0, 0, 0)
         elseif dec>50 then
             arg2:ClearSubGoal()
             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3034, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3086, TARGET_ENE_0, 9999, 0, 0, 0, 0)
         end
+        
 
     elseif f49_local0  == 60007 then --3006 attack type follow up
         arg2:ClearSubGoal()
@@ -1550,7 +1555,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
                 if decisionS >=50 then
                 arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3026, TARGET_ENE_0, 9999, 0, 0, 0, 0)
                 else
-                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3004, TARGET_ENE_0, 9999, 0, 0, 0, 0)--lightning Sakura Dance
+                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3087, TARGET_ENE_0, 9999, 0, 0, 0, 0)--lightning Sakura Dance
                 end
                 --do this
             else
@@ -2136,7 +2141,7 @@ end
 
 Goal.Kengeki18 = function (arg0, arg1, arg2)
     arg1:ClearSubGoal()
-    arg1:AddSubGoal(GOAL_COMMON_ComboFinal, 10, 3004, TARGET_ENE_0, 9999, 0, 0)
+    arg1:AddSubGoal(GOAL_COMMON_ComboFinal, 10, 3086, TARGET_ENE_0, 9999, 0, 0)
     
 end
 
