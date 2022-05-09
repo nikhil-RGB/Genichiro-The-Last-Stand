@@ -20,6 +20,8 @@ Goal.Activate = function (arg0, arg1, arg2)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60012)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60013)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60015)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60016)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60017)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60007)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5025)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5026)
@@ -1512,14 +1514,46 @@ Goal.Interrupt = function (arg0, arg1, arg2)
         arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3026, TARGET_ENE_0, 9999, 0, 0, 0, 0)
         end
         --end of mikiri interrupt
-    elseif f49_local0==60013 then
+    elseif f49_local0==60013 then--ichimonji attack cancel
         arg2:ClearSubGoal()
         arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3085, TARGET_ENE_0, 9999, 0, 0, 0, 0)
-    elseif f49_local0==60015 then
+    elseif f49_local0==60015 then--fallback grab
         arg2:ClearSubGoal()
         arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3021, TARGET_ENE_0, 9999, 0, 0, 0, 0)
         arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3023, TARGET_ENE_0, 9999, 0, 0, 0, 0)
-    --3006 type attack follow up attack
+    elseif f49_local0==60016 then--this is a follow up to perilious downward thrust
+        local interr=arg1:GetRandam_Int(1,100)
+    if interr>65 then
+        local make_dec=arg1:GetRandam_Int(1,100)
+        if make_dec>70 then
+            arg2:ClearSubGoal()
+            local other=arg1:GetRandam_Int(1,100)
+            if other>26 then
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3023, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            else
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3037, TARGET_ENE_0, 9999, 0, 0, 0, 0)   
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3009, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            end
+        elseif make_dec>50 then
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3086, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+        else
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3031, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            local rng=arg1:GetRandam_Int(1,100)
+            if rng>80 then
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3019, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            elseif rng>60 then
+                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3035, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            elseif rng>40 then
+                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3006, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            elseif rng>20 then
+                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3014, TARGET_ENE_0, 9999, 0, 0, 0, 0)    
+                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3015, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            else
+                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3038, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            end
+        end
+     end
+        --3006 type attack follow up attack
     elseif f49_local0  == 60012 then
         
         --add sakura dance cancels into the attacks
@@ -1538,8 +1572,44 @@ Goal.Interrupt = function (arg0, arg1, arg2)
             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3034, TARGET_ENE_0, 9999, 0, 0, 0, 0)
             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3086, TARGET_ENE_0, 9999, 0, 0, 0, 0)
         end
-        
-
+    elseif f49_local0 ==60017 then   --distance checks for sekiro/sekiro ran away
+        local distance =arg1:GetDist(TARGET_ENE_0)
+        if distance>4 then
+        arg2:ClearSubGoal()
+        local choose=arg1:GetRandam_Int(1,100)
+        if choose>70 then
+        --normal attacks here
+        local ranged_choose=arg1:GetRandam_Int(1,100)
+        if ranged_choose>80 then
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3031, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+        elseif ranged_choose>60 then
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3034, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+        end
+        local gap_closer=arg1:GetRandam_Int(1,100)
+        if gap_closer>80 then
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3035, TARGET_ENE_0, 9999, 0, 0, 0, 0)    
+        elseif gap_closer>60 then
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3019, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+        elseif gap_closer>30 then
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3006, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+        else
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3014, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3015, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+        end
+        else
+        --specialized gapclosers here
+        local gap_closer=arg1:GetRandam_Int(1,100)
+        if gap_closer>80 then
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3008, TARGET_ENE_0, 9999, 0, 0, 0, 0)    
+        elseif gap_closer>60 then
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3043, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+        elseif gap_closer>30 then
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3086, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+        else
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3038, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+        end
+        end 
+        end  
     elseif f49_local0  == 60007 then --3006 attack type follow up
         arg2:ClearSubGoal()
         local main_dec=arg1:GetRandam_Int(1,100) 
