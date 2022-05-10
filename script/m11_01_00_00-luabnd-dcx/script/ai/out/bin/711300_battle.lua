@@ -23,6 +23,8 @@ Goal.Activate = function (arg0, arg1, arg2)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60016)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60017)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60018)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60019)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60020)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60007)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5025)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5026)
@@ -1494,6 +1496,29 @@ Goal.Interrupt = function (arg0, arg1, arg2)
                 arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3032, TARGET_ENE_0, 9999, 0)
             end
             --end
+        elseif f49_local0 ==60020 then
+            arg2:ClearSubGoal()
+            --definitive followup to spin counterattack, no check for player defelct stance
+            --may look unprofessional if player sprite dodges counterattack instead of standard parry/block
+            --reaction.
+            local rng=arg1:GetRandam_Int(1,100)
+            if rng>80 then
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3008, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            elseif rng>60 then
+                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3006, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            elseif rng>40 then
+                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3031, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3036, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3038, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            elseif rng>20 then
+                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3014, TARGET_ENE_0, 9999, 0, 0, 0, 0)    
+                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3015, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            else
+                
+                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3034, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3087, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            end
+          
         --mikiri interrupt:
     elseif f49_local0 == 5004 then --mikiri interrupt
         arg2:ClearSubGoal()
@@ -1534,23 +1559,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3023, TARGET_ENE_0, 9999, 0, 0, 0, 0)
             else
             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3037, TARGET_ENE_0, 9999, 0, 0, 0, 0)   
-            local rng=arg1:GetRandam_Int(1,100)
-            if rng>80 then
-            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3008, TARGET_ENE_0, 9999, 0, 0, 0, 0)
-            elseif rng>60 then
-                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3006, TARGET_ENE_0, 9999, 0, 0, 0, 0)
-            elseif rng>40 then
-                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3031, TARGET_ENE_0, 9999, 0, 0, 0, 0)
-                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3036, TARGET_ENE_0, 9999, 0, 0, 0, 0)
-                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3038, TARGET_ENE_0, 9999, 0, 0, 0, 0)
-            elseif rng>20 then
-                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3014, TARGET_ENE_0, 9999, 0, 0, 0, 0)    
-                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3015, TARGET_ENE_0, 9999, 0, 0, 0, 0)
-            else
-                
-                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3034, TARGET_ENE_0, 9999, 0, 0, 0, 0)
-                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3087, TARGET_ENE_0, 9999, 0, 0, 0, 0)
-            end
+            
             end
         elseif make_dec>20 then
             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3086, TARGET_ENE_0, 9999, 0, 0, 0, 0)
@@ -1608,11 +1617,17 @@ Goal.Interrupt = function (arg0, arg1, arg2)
                 arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3042, TARGET_ENE_0, 9999, 0, 0, 0, 0)
             end      
         end
-    elseif f49_local0 ==60017 then   --distance checks for sekiro/sekiro ran away
+    elseif f49_local0 ==60017 or f49_local==60019 then   --distance checks for sekiro/sekiro ran away
         local distance =arg1:GetDist(TARGET_ENE_0)
+        if f49_local0==60019 then
+         distance=999;
+        end
         if distance>3 then
         arg2:ClearSubGoal()
         local choose=arg1:GetRandam_Int(1,100)
+        if f49_local0==60019 then
+            choose=99;
+           end    
         if choose>70 then
         --normal attacks here
         local ranged_choose=arg1:GetRandam_Int(1,100)
