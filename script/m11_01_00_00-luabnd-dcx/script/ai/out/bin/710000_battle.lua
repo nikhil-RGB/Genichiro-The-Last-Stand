@@ -28,6 +28,8 @@ Goal.Activate = function (arg0, arg1, arg2)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60008)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60009)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60010)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60019)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60020)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5021)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5026)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5029)
@@ -689,10 +691,13 @@ Goal.Interrupt = function (arg0, arg1, arg2)
             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3019, TARGET_ENE_0, 9999, 0, 0, 0, 0)           
             end
             end
-        elseif SP_REAC == 60009 then --fp main interrupt
+        elseif SP_REAC == 60009 or SP_REAC ==60020 then --fp main interrupt
             local inter=arg1:GetRandam_Int(1, 100)
             if arg1:GetDist(TARGET_ENE_0)>4 then
             inter=99
+            end
+            if SP_REAC ==60020 and arg1:GetNinsatsuNum()==2 then
+            inter=0;
             end
             if inter >=20 then
             arg2:ClearSubGoal()
@@ -719,7 +724,34 @@ Goal.Interrupt = function (arg0, arg1, arg2)
             --do melee interrupt here
             end
         end
-        
+
+        elseif SP_REAC ==60019 then --sakura dance interrupt(activates only in 2nd phase)
+            local phase=arg1:GetNinsatsuNum()
+            if  phase==1 then
+            local interrupt=arg1:GetRandam_Int(1, 100)
+            if interrupt>40 then
+            arg2:ClearSubGoal()
+            local decide=arg1:GetRandam_Int(1,100)
+            if decide>75 then
+                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3,3010, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            elseif decide>55 then
+                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3030, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            elseif decide>35 then
+                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3022, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3023, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            else
+                local ranged=arg1:GetRandam_Int(1, 100)
+                if ranged>50 then
+                    arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3031, TARGET_ENE_0, 9999, 0, 0, 0, 0)    
+                    arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3019, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+                else
+                    arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3034, TARGET_ENE_0, 9999, 0, 0, 0, 0)    
+                    arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3006, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+                end
+            end   
+            end
+            end
+
         elseif SP_REAC == 5007 then --four arrow interrupt
             if arg1:GetRandam_Int(1,100)>10 then
             arg2:ClearSubGoal()
@@ -728,6 +760,8 @@ Goal.Interrupt = function (arg0, arg1, arg2)
             else
             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3038, TARGET_ENE_0, 9999, 0, 0, 0, 0)--chasing slice--added hyper armour 
             end
+            else
+                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3043, TARGET_ENE_0, 9999, 0, 0, 0, 0)    
             end
         elseif SP_REAC == 60007 then --3006 attack type follow up
             arg2:ClearSubGoal()
@@ -909,7 +943,8 @@ Goal.Interrupt = function (arg0, arg1, arg2)
         elseif SP_REAC == 5021  then --knockback interrupt
             arg2:ClearSubGoal()
             local makeDec=arg1:GetDist(TARGET_ENE_0)
-            if makeDec>=3 then
+            local healthbars=arg1:GetNinsatsuNum()
+            if makeDec>=3 or healthbars==2 then
             local choose=arg1:GetRandam_Int(1, 100)
             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3036, TARGET_ENE_0, 9999, 0, 0, 0, 0)
             if choose>=70 then
