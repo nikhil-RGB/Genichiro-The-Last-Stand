@@ -737,7 +737,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
             elseif decide>55 then
                 arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3030, TARGET_ENE_0, 9999, 0, 0, 0, 0)
             elseif decide>35 then
-                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3022, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3034, TARGET_ENE_0, 9999, 0, 0, 0, 0)
                 arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3023, TARGET_ENE_0, 9999, 0, 0, 0, 0)
             else
                 local ranged=arg1:GetRandam_Int(1, 100)
@@ -753,16 +753,14 @@ Goal.Interrupt = function (arg0, arg1, arg2)
             end
 
         elseif SP_REAC == 5007 then --four arrow interrupt
-            if arg1:GetRandam_Int(1,100)>10 then
+            
             arg2:ClearSubGoal()
             if f26_local3>75 then
             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3049, TARGET_ENE_0, 9999, 0, 0, 0, 0)--floating passage--added hyper armour
             else
             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3038, TARGET_ENE_0, 9999, 0, 0, 0, 0)--chasing slice--added hyper armour 
             end
-            else
-                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3043, TARGET_ENE_0, 9999, 0, 0, 0, 0)    
-            end
+            
         elseif SP_REAC == 60007 then --3006 attack type follow up
             arg2:ClearSubGoal()
             local main_dec=arg1:GetRandam_Int(1,100) 
