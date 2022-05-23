@@ -30,6 +30,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60010)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60019)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60020)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60021)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5021)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5026)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5029)
@@ -696,9 +697,6 @@ Goal.Interrupt = function (arg0, arg1, arg2)
             if arg1:GetDist(TARGET_ENE_0)>4 then
             inter=99
             end
-            if SP_REAC ==60020 and arg1:GetNinsatsuNum()==2 then
-            inter=0;
-            end
             if inter >=20 then
             arg2:ClearSubGoal()
             local dist=arg1:GetDist(TARGET_ENE_0)
@@ -804,10 +802,38 @@ Goal.Interrupt = function (arg0, arg1, arg2)
 
         elseif SP_REAC == 60006 then --thrust downward interrupt
             arg2:ClearSubGoal()
+            local posture=arg1:GetSpRate(TARGET_SELF)
+            local cancel_prob=arg1:GetRandam_Int(1, 100)
+            if posture<0.5 and cancel_prob>40 then --CANCEL probability here refers to the chance that Genichiro may cancel out of standard slam down responses and respond with ranged attacks
+                local phase_left=arg1:GetNinsatsuNum()
+                if phase_left==2 then
+                    --create distance first
+                    local gap_maker=arg1:GetRandam_Int(1, 100)
+                    if gap_maker>65 then
+                    arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3009, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+                    elseif gap_maker>50 then
+                        arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3011, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+                    elseif gap_maker>30 then
+                        arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3031, TARGET_ENE_0, 9999, 0, 0, 0, 0)        
+                
+                    else
+                    end
+                    local distance_closer=arg1:GetRandam_Int(1, 100)
+                    if distance_closer>40 then
+                        arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3019, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+                    else
+                        arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3006, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+                    end
+                else
+                    arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3037, TARGET_ENE_0, 9999, 0, 0, 0, 0) 
+                    arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3006, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+                end
+            else
             local dist1=arg1:GetDist(TARGET_ENE_0)
             if dist1>=4 then
                 arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3038, TARGET_ENE_0, 9999, 0, 0, 0, 0)
             end
+            
             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3029, TARGET_ENE_0, 9999, 0, 0, 0, 0)
             local decision2=arg1:GetRandam_Int(1,100)
             if decision2>65 then
@@ -860,7 +886,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
            -- else
              --   arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3062, TARGET_ENE_0, 9999, 0, 0, 0, 0)      
             --end
-            
+        end
         elseif SP_REAC == 5006  then --elbow thrust
             arg2:ClearSubGoal()
             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3003, TARGET_ENE_0, 9999, 0, 0, 0, 0)
@@ -934,7 +960,23 @@ Goal.Interrupt = function (arg0, arg1, arg2)
                 arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3062, TARGET_ENE_0, 9999, 0, 0, 0, 0)  
             end
         end
-         
+    elseif SP_REAC == 60021  then --spicy interrupt
+        arg2:ClearSubGoal()
+        local stage=arg1:GetNinsatsuNum()
+        if arg1:GetRandam_Int(1, 100)>60 then
+           if stage==1 then
+            arg2:AddSubGoal(GOAL_COMMON_AttackImmediateAction, 3, 3022, TARGET_ENE_0, 9999, 0, 0, 0, 0)     
+           elseif  arg1:GetRandam_Int(1, 100)>50 then
+            arg2:AddSubGoal(GOAL_COMMON_AttackImmediateAction, 3, 3020, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+           else
+            local ultra_cancel_prob=arg1:GetRandam_Int(1, 100)
+            if ultra_cancel_prob>40 then
+                arg2:AddSubGoal(GOAL_COMMON_AttackImmediateAction, 3, 3030, TARGET_ENE_0, 9999, 0, 0, 0, 0) 
+            else
+                arg2:AddSubGoal(GOAL_COMMON_AttackImmediateAction, 3, 3010, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            end
+        end
+     end
     elseif SP_REAC == 60008  then --knockback interrupt
         arg2:ClearSubGoal()
         arg2:AddSubGoal(GOAL_COMMON_AttackImmediateAction, 3, 3044, TARGET_ENE_0, 9999, 0, 0, 0, 0)
