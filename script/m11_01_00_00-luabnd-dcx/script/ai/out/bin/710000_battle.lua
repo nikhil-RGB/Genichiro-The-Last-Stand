@@ -804,7 +804,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
             arg2:ClearSubGoal()
             local posture=arg1:GetSpRate(TARGET_SELF)
             local cancel_prob=arg1:GetRandam_Int(1, 100)
-            if posture<0.5 and cancel_prob>40 then --CANCEL probability here refers to the chance that Genichiro may cancel out of standard slam down responses and respond with ranged attacks
+            if posture<0.6 and cancel_prob>40 then --CANCEL probability here refers to the chance that Genichiro may cancel out of standard slam down responses and respond with ranged attacks
                 local phase_left=arg1:GetNinsatsuNum()
                 if phase_left==2 then
                     --create distance first
@@ -977,9 +977,16 @@ Goal.Interrupt = function (arg0, arg1, arg2)
             end
         end
      end
-    elseif SP_REAC == 60008  then --knockback interrupt
+    elseif SP_REAC == 60008  then --step-back interrupt
         arg2:ClearSubGoal()
+        local posture=arg1:GetRandam_Int(1, 100)
+        if posture>0.45 then
         arg2:AddSubGoal(GOAL_COMMON_AttackImmediateAction, 3, 3044, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+        elseif posture>0.20 then
+            arg2:AddSubGoal(GOAL_COMMON_AttackImmediateAction, 3, 3039, TARGET_ENE_0, 9999, 0, 0, 0, 0)    
+        else
+            arg2:AddSubGoal(GOAL_COMMON_AttackImmediateAction, 3, 405001, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+        end
         elseif SP_REAC == 5021  then --knockback interrupt
             arg2:ClearSubGoal()
             local makeDec=arg1:GetDist(TARGET_ENE_0)
