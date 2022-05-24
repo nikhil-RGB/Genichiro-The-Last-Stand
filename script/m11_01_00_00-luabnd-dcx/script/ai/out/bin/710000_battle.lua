@@ -31,6 +31,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60019)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60020)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60021)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60022)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5021)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5026)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5029)
@@ -675,6 +676,10 @@ Goal.Interrupt = function (arg0, arg1, arg2)
         elseif SP_REAC == 110010 then --sekiro ded interrupt
             arg2:ClearSubGoal()
             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3046, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+        elseif SP_REAC ==60022 then 
+            --this causes a bow pull-out reaction
+            arg2:ClearSubGoal()
+            arg2:AddSubGoal(GOAL_COMMON_AttackImmediateAction, 3, 3023, TARGET_ENE_0, 9999, 0, 0, 0, 0)
         elseif SP_REAC == 60010 then --sekiro ran away interrupt
             local distanceVAR=arg1:GetDist(TARGET_ENE_0)
             if distanceVAR>=4 then
@@ -753,7 +758,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
         elseif SP_REAC == 5007 then --four arrow interrupt
             
             arg2:ClearSubGoal()
-            if f26_local3>75 then
+            if f26_local3>50 then
             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3049, TARGET_ENE_0, 9999, 0, 0, 0, 0)--floating passage--added hyper armour
             else
             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3038, TARGET_ENE_0, 9999, 0, 0, 0, 0)--chasing slice--added hyper armour 
@@ -826,7 +831,22 @@ Goal.Interrupt = function (arg0, arg1, arg2)
                     end
                 else
                     arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3037, TARGET_ENE_0, 9999, 0, 0, 0, 0) 
+                    if arg1:GetRandam_Int(1, 100)>40 then
                     arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3006, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+                    else
+                        local choose=arg1:GetRandam_Int(1, 100)
+            if choose>=80 then
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3036, TARGET_ENE_0, 9999, 0, 0, 0, 0)    
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3038, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            elseif choose>=50 then
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3014, TARGET_ENE_0, 9999, 0, 0, 0, 0)    
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3015, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            elseif  choose>=30 then
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3006, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            else
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3019, TARGET_ENE_0, 9999, 0, 0, 0, 0)           
+            end 
+                    end
                 end
             else
             local dist1=arg1:GetDist(TARGET_ENE_0)
@@ -979,7 +999,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
      end
     elseif SP_REAC == 60008  then --step-back interrupt
         arg2:ClearSubGoal()
-        local posture=arg1:GetRandam_Int(1, 100)
+        local posture=arg1:GetSpRate(TARGET_SELF)
         if posture>0.45 then
         arg2:AddSubGoal(GOAL_COMMON_AttackImmediateAction, 3, 3044, TARGET_ENE_0, 9999, 0, 0, 0, 0)
         elseif posture>0.20 then
