@@ -699,6 +699,10 @@ Goal.Interrupt = function (arg0, arg1, arg2)
             end
         elseif SP_REAC == 60009 or SP_REAC ==60020 then --fp main interrupt
             local inter=arg1:GetRandam_Int(1, 100)
+            local phase_left=arg1:GetNinsatsuNum()
+            if phase_left==2 and SP_REAC ==60020 then 
+            inter=0
+            end
             if arg1:GetDist(TARGET_ENE_0)>4 then
             inter=99
             end
@@ -981,10 +985,14 @@ Goal.Interrupt = function (arg0, arg1, arg2)
             end
         end
     elseif SP_REAC == 60021  then --spicy interrupt
-        arg2:ClearSubGoal()
-        local stage=arg1:GetNinsatsuNum()
+        --This code is a interrupt for extra floating passage and should be called
+        --only in phase 2 of the fight. 
+        local phase_left=arg1:GetNinsatsuNum()
+        if phase_left==1 then     
+        local stage=arg1:GetSpRate(TARGET_SELF)
         if arg1:GetRandam_Int(1, 100)>60 then
-           if stage==1 then
+           arg2:ClearSubGoal()
+           if stage>0.6 then
             arg2:AddSubGoal(GOAL_COMMON_AttackImmediateAction, 3, 3022, TARGET_ENE_0, 9999, 0, 0, 0, 0)     
            elseif  arg1:GetRandam_Int(1, 100)>50 then
             arg2:AddSubGoal(GOAL_COMMON_AttackImmediateAction, 3, 3020, TARGET_ENE_0, 9999, 0, 0, 0, 0)
@@ -997,6 +1005,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
             end
         end
      end
+    end
     elseif SP_REAC == 60008  then --step-back interrupt
         arg2:ClearSubGoal()
         local posture=arg1:GetSpRate(TARGET_SELF)
