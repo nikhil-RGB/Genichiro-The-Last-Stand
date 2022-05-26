@@ -736,7 +736,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
             local phase=arg1:GetNinsatsuNum()
             if  phase==1 then
             local interrupt=arg1:GetRandam_Int(1, 100)
-            if interrupt>40 then
+            if interrupt>30 then
             arg2:ClearSubGoal()
             local decide=arg1:GetRandam_Int(1,100)
             if decide>75 then
@@ -757,8 +757,17 @@ Goal.Interrupt = function (arg0, arg1, arg2)
                 end
             end   
             end
+        else
+            local interrupt=arg1:GetRandam_Int(1, 100)
+            local choose=arg1:GetRandam_Int(1, 100)
+            if interrupt>65 then 
+                if choose>30 then
+                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3039, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+                else
+                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3044, TARGET_ENE_0, 9999, 0, 0, 0, 0)    
             end
-
+            end
+        end
         elseif SP_REAC == 5007 then --four arrow interrupt
             
             arg2:ClearSubGoal()
