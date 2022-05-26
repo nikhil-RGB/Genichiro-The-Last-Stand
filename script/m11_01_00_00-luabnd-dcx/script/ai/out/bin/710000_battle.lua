@@ -842,8 +842,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
             if choose>=80 then
             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3036, TARGET_ENE_0, 9999, 0, 0, 0, 0)    
             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3038, TARGET_ENE_0, 9999, 0, 0, 0, 0)
-            elseif choose>=50 then
-            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3014, TARGET_ENE_0, 9999, 0, 0, 0, 0)    
+            elseif choose>=50 then    
             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3015, TARGET_ENE_0, 9999, 0, 0, 0, 0)
             elseif  choose>=30 then
             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3006, TARGET_ENE_0, 9999, 0, 0, 0, 0)
