@@ -1013,6 +1013,20 @@ Goal.Interrupt = function (arg0, arg1, arg2)
             end
         end
      end
+    else
+       local stage=arg1:GetSpRate(TARGET_SELF)
+       local prob=arg1:GetRandam_Int(1,100)
+       if stage<0.6 and prob>55 then
+        arg2:ClearSubGoal()
+       local cancel_probs=arg1:GetRandam_Int(1, 100)
+    if cancel_probs>70 then
+        arg2:AddSubGoal(GOAL_COMMON_AttackImmediateAction, 3, 3026, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+    elseif cancel_probs>50 then
+        arg2:AddSubGoal(GOAL_COMMON_AttackImmediateAction, 3, 3039, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+    else
+        arg2:AddSubGoal(GOAL_COMMON_AttackImmediateAction, 3, 3022, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+    end
+    end
     end
     elseif SP_REAC == 60008  then --step-back interrupt
         arg2:ClearSubGoal()
