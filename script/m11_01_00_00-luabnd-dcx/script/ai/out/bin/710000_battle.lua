@@ -32,6 +32,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60020)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60021)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60022)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60023)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5021)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5026)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5029)
@@ -673,6 +674,21 @@ Goal.Interrupt = function (arg0, arg1, arg2)
         if SP_REAC == 3710020 then
             arg1:SetNumber(0, 0)
             return true
+        elseif SP_REAC==60023 then
+          --Extra fp cancel
+          local cancel=arg1:GetRandam_Int(1, 100)
+          local phase_left=arg1:GetSpRate(TARGET_SELF)
+          if cancel>60 and phase_left==1 then
+            arg2:ClearSubGoal()  
+          local choice=arg1:GetRandam_Int(1, 100)
+          if choice>70 then
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3045, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3036, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+          elseif choice>40 then
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3030, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+          else
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3026, TARGET_ENE_0, 9999, 0, 0, 0, 0)  
+          end  
         elseif SP_REAC == 110010 then --sekiro ded interrupt
             arg2:ClearSubGoal()
             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3046, TARGET_ENE_0, 9999, 0, 0, 0, 0)
@@ -720,7 +736,12 @@ Goal.Interrupt = function (arg0, arg1, arg2)
             else
             local melee =arg1:GetRandam_Int(1, 100)
             if melee>=70 then
-                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3022, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+                local choose =arg1:GetRandam_Int(1, 100)
+                if arg1>40 then
+                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3030, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+                else
+                    arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3022, TARGET_ENE_0, 9999, 0, 0, 0, 0)   
+                end
             elseif melee>=40 then
                 arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3010, TARGET_ENE_0, 9999, 0, 0, 0, 0)
             elseif melee>=15 then
@@ -1003,7 +1024,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
            if stage>0.6 then
             arg2:AddSubGoal(GOAL_COMMON_AttackImmediateAction, 3, 3022, TARGET_ENE_0, 9999, 0, 0, 0, 0)     
            elseif  arg1:GetRandam_Int(1, 100)>50 then
-            arg2:AddSubGoal(GOAL_COMMON_AttackImmediateAction, 3, 3020, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            arg2:AddSubGoal(GOAL_COMMON_AttackImmediateAction, 3, 3026, TARGET_ENE_0, 9999, 0, 0, 0, 0)
            else
             local ultra_cancel_prob=arg1:GetRandam_Int(1, 100)
             if ultra_cancel_prob>40 then
@@ -1016,7 +1037,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
     else
        local stage=arg1:GetSpRate(TARGET_SELF)
        local prob=arg1:GetRandam_Int(1,100)
-       if stage<0.6 and prob>55 then
+       if stage<0.6 and prob>45 then
         arg2:ClearSubGoal()
        local cancel_probs=arg1:GetRandam_Int(1, 100)
     if cancel_probs>70 then
