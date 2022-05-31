@@ -677,8 +677,8 @@ Goal.Interrupt = function (arg0, arg1, arg2)
         elseif SP_REAC==60023 then
           --Extra fp cancel
           local cancel=arg1:GetRandam_Int(1, 100)
-          local phase_left=arg1:GetSpRate(TARGET_SELF)
-          if cancel>60 and phase_left==1 then
+          local phase_left=arg1:GetNinsatsuNum()
+          if cancel>30 and phase_left==1 then
             arg2:ClearSubGoal()  
           local choice=arg1:GetRandam_Int(1, 100)
           if choice>70 then
@@ -688,6 +688,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3030, TARGET_ENE_0, 9999, 0, 0, 0, 0)
           else
             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3026, TARGET_ENE_0, 9999, 0, 0, 0, 0)  
+          end
           end  
         elseif SP_REAC == 110010 then --sekiro ded interrupt
             arg2:ClearSubGoal()
@@ -716,9 +717,6 @@ Goal.Interrupt = function (arg0, arg1, arg2)
         elseif SP_REAC == 60009 or SP_REAC ==60020 then --fp main interrupt
             local inter=arg1:GetRandam_Int(1, 100)
             local phase_left=arg1:GetNinsatsuNum()
-            if phase_left==2 and SP_REAC ==60020 then 
-            inter=0
-            end
             if arg1:GetDist(TARGET_ENE_0)>4 then
             inter=99
             end
