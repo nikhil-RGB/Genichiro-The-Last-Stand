@@ -21,6 +21,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60013)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60015)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60016)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60024)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60017)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60018)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60019)
@@ -1549,8 +1550,12 @@ Goal.Interrupt = function (arg0, arg1, arg2)
         arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3023, TARGET_ENE_0, 9999, 0, 0, 0, 0)
     elseif f49_local0==60016 then--this is a follow up to perilious downward thrust
         local interr=arg1:GetRandam_Int(1,100)
-    if interr>20 then
+        local posture=arg1:GetSpRate(TARGET_ENE_0)
+    if interr>20 or posture==0 then
         arg2:ClearSubGoal()
+        if posture==0 then
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3009, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+        end
         local make_dec=arg1:GetRandam_Int(1,100)
         if make_dec>35 then
             

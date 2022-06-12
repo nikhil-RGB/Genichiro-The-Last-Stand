@@ -85,3 +85,6 @@ System.NullReferenceException: Object reference not set to an instance of an obj
    at DSAnimStudio.Main.<>c.<LoadContent>b__110_0(IProgress`1 progress) in C:\Users\Meowmaritus\GitHub\DSAnimStudio\DSAnimStudio\Main.cs:line 531
    at DSAnimStudio.LoadingTaskMan.<>c__DisplayClass4_0.<DoLoadingTask>b__0(IProgress`1 progress) in C:\Users\Meowmaritus\GitHub\DSAnimStudio\DSAnimStudio\LoadingTaskMan.cs:line 139
    at DSAnimStudio.LoadingTaskMan.LoadingTask.<>c__DisplayClass12_1.<.ctor>b__1() in C:\Users\Meowmaritus\GitHub\DSAnimStudio\DSAnimStudio\LoadingTaskMan.cs:line 47
+
+
+[2022.06.12 18:20:43][WARNING] Unable to find the file '<Data Root>\chr\c7119.texbnd.dcx' in the main data root directory ('C:\Games\Sekiro - Shadows Die Twice\mods') or the directory in which that one is located.

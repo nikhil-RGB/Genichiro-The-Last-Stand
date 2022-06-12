@@ -721,7 +721,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
             inter=99
             end
             if inter >=20 then
-            arg2:ClearSubGoal()
+            --arg2:ClearSubGoal()
             local dist=arg1:GetDist(TARGET_ENE_0)
             if dist >=3 then
             --do ranged interrupt here
