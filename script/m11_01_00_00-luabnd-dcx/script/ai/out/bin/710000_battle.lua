@@ -693,10 +693,15 @@ Goal.Interrupt = function (arg0, arg1, arg2)
         elseif SP_REAC == 110010 then --sekiro ded interrupt
             arg2:ClearSubGoal()
             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3046, TARGET_ENE_0, 9999, 0, 0, 0, 0)
-        elseif SP_REAC ==60022 then 
+        elseif SP_REAC==60022 then 
             --this causes a bow pull-out reaction
             arg2:ClearSubGoal()
+            local choose_follow=arg1:GetRandam_Int(1, 100)
+            if choose_follow>35 then
             arg2:AddSubGoal(GOAL_COMMON_AttackImmediateAction, 3, 3023, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            else
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3009, TARGET_ENE_0, 9999, 0, 0, 0, 0)    
+            end
         elseif SP_REAC == 60010 then --sekiro ran away interrupt
             local distanceVAR=arg1:GetDist(TARGET_ENE_0)
             if distanceVAR>=4 then
