@@ -15,6 +15,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     local f2_local5 = arg1:GetHpRate(TARGET_SELF)
     local f2_local6 = arg1:GetSpRate(TARGET_SELF)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5004)
+
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60000)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60011)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60012)
@@ -42,6 +43,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 109031)
     arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 110010)
     arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 3711000)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 110125)
     arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 9507)
     Set_ConsecutiveGuardCount_Interrupt(arg1)
     arg1:DeleteObserve(0)
@@ -1477,8 +1479,16 @@ Goal.Interrupt = function (arg0, arg1, arg2)
                 arg1:SetNumber(2, 0)
                 return true
             end
-            --CHASING SLICE OR CHASE SWORD SHEATHE
-             
+            
+        elseif f49_local0==110125 then
+             --posture-break punish
+             local dist=arg1:GetDist(TARGET_ENE_0)
+             if dist<=3 then
+                arg2:ClearSubGoal()
+                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3009, TARGET_ENE_0, 9999, 0)
+             end
+
+           --CHASING SLICE OR CHASE SWORD SHEATHE  
         elseif f49_local0 == 60011 or f49_local0 == 60000 then --3019 or chasing slice follow up, respectively
             arg2:ClearSubGoal()
             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3029, TARGET_ENE_0, 9999, 0)
@@ -1550,12 +1560,8 @@ Goal.Interrupt = function (arg0, arg1, arg2)
         arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3023, TARGET_ENE_0, 9999, 0, 0, 0, 0)
     elseif f49_local0==60016 then--this is a follow up to perilious downward thrust
         local interr=arg1:GetRandam_Int(1,100)
-        local posture=arg1:GetSpRate(TARGET_ENE_0)
-    if interr>20 or posture==0 then
+    if interr>20 then
         arg2:ClearSubGoal()
-        if posture==0 then
-            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3009, TARGET_ENE_0, 9999, 0, 0, 0, 0)
-        end
         local make_dec=arg1:GetRandam_Int(1,100)
         if make_dec>35 then
             
