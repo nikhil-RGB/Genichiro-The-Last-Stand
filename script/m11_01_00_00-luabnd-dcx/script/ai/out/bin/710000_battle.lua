@@ -717,7 +717,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
         elseif SP_REAC == 60009 or SP_REAC ==60020 then --fp main interrupt
             local inter=arg1:GetRandam_Int(1, 100)
             local phase_left=arg1:GetNinsatsuNum()
-            if arg1:GetDist(TARGET_ENE_0)>4 then
+            if arg1:GetDist(TARGET_ENE_0)>=3 then
             inter=99
             end
             if inter >=20 then
