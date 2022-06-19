@@ -15,7 +15,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     local f2_local5 = arg1:GetHpRate(TARGET_SELF)
     local f2_local6 = arg1:GetSpRate(TARGET_SELF)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5004)
-
+    arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60025)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60000)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60011)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60012)
@@ -1529,7 +1529,9 @@ Goal.Interrupt = function (arg0, arg1, arg2)
                 arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3034, TARGET_ENE_0, 9999, 0, 0, 0, 0)
                 arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3087, TARGET_ENE_0, 9999, 0, 0, 0, 0)
             end
-          
+        elseif f49_local0 ==60025 then --heavy hit follow up
+            arg2:ClearSubGoal()
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3038, TARGET_ENE_0, 9999, 0, 0, 0, 0)
         --mikiri interrupt:
     elseif f49_local0 == 5004 then --mikiri interrupt
         arg2:ClearSubGoal()
@@ -1556,8 +1558,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
         arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3085, TARGET_ENE_0, 9999, 0, 0, 0, 0)
     elseif f49_local0==60015 then--fallback grab
         arg2:ClearSubGoal()
-        arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3021, TARGET_ENE_0, 9999, 0, 0, 0, 0)
-        arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3023, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+        arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3009, TARGET_ENE_0, 9999, 0, 0, 0, 0)
     elseif f49_local0==60016 then--this is a follow up to perilious downward thrust
         local interr=arg1:GetRandam_Int(1,100)
     if interr>20 then
