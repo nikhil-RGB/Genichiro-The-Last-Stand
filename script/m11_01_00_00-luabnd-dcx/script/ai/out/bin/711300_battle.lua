@@ -1616,19 +1616,19 @@ Goal.Interrupt = function (arg0, arg1, arg2)
             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3034, TARGET_ENE_0, 9999, 0, 0, 0, 0)
             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3086, TARGET_ENE_0, 9999, 0, 0, 0, 0)
         end
-    elseif f49_local0==60018 then --lightning sakura dance cancel
-        local cancel=arg1:GetRandam_Int(1,100)
-        if cancel>60 then
-            arg2:ClearSubGoal()
-            local choose=arg1:GetRandam_Int(1,100)
-            if choose>70 then
-                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3022, TARGET_ENE_0, 9999, 0, 0, 0, 0)
-            elseif choose>45 then
-                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3039, TARGET_ENE_0, 9999, 0, 0, 0, 0)
-            else
-                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3042, TARGET_ENE_0, 9999, 0, 0, 0, 0)
-            end      
-        end
+   -- elseif f49_local0==60018 then --lightning sakura dance cancel
+   --     local cancel=arg1:GetRandam_Int(1,100)
+   --     if cancel>60 then
+   --         arg2:ClearSubGoal()
+   --         local choose=arg1:GetRandam_Int(1,100)
+   --         if choose>70 then
+   --             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3022, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+   --         elseif choose>45 then
+   --             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3039, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+   --         else
+   --             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3042, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+   --         end      
+   --     end
     elseif f49_local0 ==60017 or f49_local==60019 then   --distance checks for sekiro/sekiro ran away
         local distance =arg1:GetDist(TARGET_ENE_0)
         if f49_local0==60019 then
