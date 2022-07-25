@@ -1460,6 +1460,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
     local f49_local1 = arg1:GetSpecialEffectInactivateInterruptType(0)
     local f49_local2 = arg1:GetDist(TARGET_ENE_0)
     local f49_local3 = arg1:GetRandam_Int(1, 100)
+    local SEKIRO_HP=arg1:GetHpRate(TARGET_ENE_0)
     if arg1:IsLadderAct(TARGET_SELF) then
         return false
     end
@@ -1479,8 +1480,8 @@ Goal.Interrupt = function (arg0, arg1, arg2)
                 arg1:SetNumber(2, 0)
                 return true
             end
-            
-        elseif f49_local0==110125 then
+         --No Sekiro being alive check for first SP-interrupt   
+        elseif f49_local0==110125 and SEKIRO_HP>0 then
              --posture-break punish
              local dist=arg1:GetDist(TARGET_ENE_0)
              if dist<=3 then
@@ -1489,7 +1490,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
              end
 
            --CHASING SLICE OR CHASE SWORD SHEATHE  
-        elseif f49_local0 == 60011 or f49_local0 == 60000 then --3019 or chasing slice follow up, respectively
+        elseif (f49_local0 == 60011 or f49_local0 == 60000) and SEKIRO_HP>0 then --3019 or chasing slice follow up, respectively
             arg2:ClearSubGoal()
             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3029, TARGET_ENE_0, 9999, 0)
             local make_dec=arg1:GetRandam_Int(1,100)
@@ -1507,7 +1508,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
                 arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3032, TARGET_ENE_0, 9999, 0)
             end
             --end
-        elseif f49_local0 ==60020 then
+        elseif f49_local0 ==60020 and SEKIRO_HP>0 then
             arg2:ClearSubGoal()
             --definitive followup to spin counterattack, no check for player defelct stance
             --may look unprofessional if player sprite dodges counterattack instead of standard parry/block
@@ -1534,11 +1535,11 @@ Goal.Interrupt = function (arg0, arg1, arg2)
                 arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3034, TARGET_ENE_0, 9999, 0, 0, 0, 0)
                 arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3087, TARGET_ENE_0, 9999, 0, 0, 0, 0)
             end
-        elseif f49_local0 ==60025 then --heavy hit follow up
+        elseif f49_local0 ==60025 and SEKIRO_HP>0 then --heavy hit follow up
             arg2:ClearSubGoal()
             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3038, TARGET_ENE_0, 9999, 0, 0, 0, 0)
         --mikiri interrupt:
-    elseif f49_local0 == 5004 then --mikiri interrupt
+    elseif f49_local0 == 5004 and SEKIRO_HP>0 then --mikiri interrupt
         arg2:ClearSubGoal()
         local f26_local3=arg1:GetRandam_Int(1,100)
         if f26_local3>70 then
@@ -1558,13 +1559,13 @@ Goal.Interrupt = function (arg0, arg1, arg2)
         arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3026, TARGET_ENE_0, 9999, 0, 0, 0, 0)
         end
         --end of mikiri interrupt
-    elseif f49_local0==60013 then--ichimonji attack cancel
+    elseif f49_local0==60013 and SEKIRO_HP>0 then--ichimonji attack cancel
         arg2:ClearSubGoal()
         arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3085, TARGET_ENE_0, 9999, 0, 0, 0, 0)
-    elseif f49_local0==60015 then--fallback grab
+    elseif f49_local0==60015 and SEKIRO_HP>0 then--fallback grab
         arg2:ClearSubGoal()
         arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3009, TARGET_ENE_0, 9999, 0, 0, 0, 0)
-    elseif f49_local0==60016 then--this is a follow up to perilious downward thrust
+    elseif f49_local0==60016 and SEKIRO_HP>0 then--this is a follow up to perilious downward thrust
         local interr=arg1:GetRandam_Int(1,100)
     if interr>20 then
         arg2:ClearSubGoal()
@@ -1598,7 +1599,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
         end
      end
         --3006 type attack follow up attack
-    elseif f49_local0  == 60012 then
+    elseif f49_local0  == 60012 and SEKIRO_HP>0 then
         
         --add sakura dance cancels into the attacks
         local dec=arg1:GetRandam_Int(1,100) 
@@ -1634,7 +1635,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
    --             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3042, TARGET_ENE_0, 9999, 0, 0, 0, 0)
    --         end      
    --     end
-    elseif f49_local0 ==60017 or f49_local==60019 then   --distance checks for sekiro/sekiro ran away
+    elseif (f49_local0 ==60017 or f49_local==60019) and SEKIRO_HP>0 then   --distance checks for sekiro/sekiro ran away
         local distance =arg1:GetDist(TARGET_ENE_0)
         if f49_local0==60019 then
          distance=999;
@@ -1678,7 +1679,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
         end
         end 
         end  
-    elseif f49_local0  == 60007 then --3006 attack type follow up
+    elseif f49_local0  == 60007 and SEKIRO_HP>0 then --3006 attack type follow up
         arg2:ClearSubGoal()
         local main_dec=arg1:GetRandam_Int(1,100) 
         if main_dec > 85 then  
