@@ -1509,7 +1509,6 @@ Goal.Interrupt = function (arg0, arg1, arg2)
             end
             --end
         elseif f49_local0 ==60020 and SEKIRO_HP>0 then
-            arg2:ClearSubGoal()
             --definitive followup to spin counterattack, no check for player defelct stance
             --may look unprofessional if player sprite dodges counterattack instead of standard parry/block
             --reaction.
@@ -1517,21 +1516,26 @@ Goal.Interrupt = function (arg0, arg1, arg2)
             if rng>80 then
             local dist=arg2:GetDist(TARGET_ENE_0)
             if dist>3 then
+            arg2:ClearSubGoal()
             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3008, TARGET_ENE_0, 9999, 0, 0, 0, 0)
-            else
-            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3032, TARGET_ENE_0, 9999, 0, 0, 0, 0)    
+            --else
+            --arg2:ClearSubGoal()
+            --arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3029, TARGET_ENE_0, 9999, 0, 0, 0, 0)    
             end
             elseif rng>60 then
+                arg2:ClearSubGoal()
                 arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3006, TARGET_ENE_0, 9999, 0, 0, 0, 0)
             elseif rng>40 then
+                arg2:ClearSubGoal()
                 arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3031, TARGET_ENE_0, 9999, 0, 0, 0, 0)
                 arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3036, TARGET_ENE_0, 9999, 0, 0, 0, 0)
                 arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3038, TARGET_ENE_0, 9999, 0, 0, 0, 0)
             elseif rng>20 then
+                arg2:ClearSubGoal()
                 arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3014, TARGET_ENE_0, 9999, 0, 0, 0, 0)    
                 arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3015, TARGET_ENE_0, 9999, 0, 0, 0, 0)
             else
-                
+                arg2:ClearSubGoal()
                 arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3034, TARGET_ENE_0, 9999, 0, 0, 0, 0)
                 arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3087, TARGET_ENE_0, 9999, 0, 0, 0, 0)
             end
