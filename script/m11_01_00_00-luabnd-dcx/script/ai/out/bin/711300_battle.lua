@@ -1514,7 +1514,12 @@ Goal.Interrupt = function (arg0, arg1, arg2)
             --reaction.
             local rng=arg1:GetRandam_Int(1,100)
             if rng>80 then
+            local dist=arg2:GetDist(TARGET_ENE_0)
+            if dist>3 then
             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3008, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            else
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3032, TARGET_ENE_0, 9999, 0, 0, 0, 0)    
+            end
             elseif rng>60 then
                 arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3006, TARGET_ENE_0, 9999, 0, 0, 0, 0)
             elseif rng>40 then
