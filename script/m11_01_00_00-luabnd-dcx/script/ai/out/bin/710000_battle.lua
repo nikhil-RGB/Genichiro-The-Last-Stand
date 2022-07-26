@@ -654,6 +654,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
     local f26_local2 = arg1:GetDist(TARGET_ENE_0)
     local f26_local3 = arg1:GetRandam_Int(1, 100)
     local f26_local4 = arg1:GetNinsatsuNum()
+    local SEKIRO_HP=arg1:GetHpRate(TARGET_ENE_0)
     if arg1:IsLadderAct(TARGET_SELF) then
         return false
     end
@@ -674,7 +675,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
         if SP_REAC == 3710020 then
             arg1:SetNumber(0, 0)
             return true
-        elseif SP_REAC==60023 then
+        elseif SP_REAC==60023 and SEKIRO_HP>0 then
           --Extra fp cancel
           local cancel=arg1:GetRandam_Int(1, 100)
           local phase_left=arg1:GetNinsatsuNum()
@@ -690,10 +691,10 @@ Goal.Interrupt = function (arg0, arg1, arg2)
             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3026, TARGET_ENE_0, 9999, 0, 0, 0, 0)  
           end
           end  
-        elseif SP_REAC == 110010 then --sekiro ded interrupt
-            arg2:ClearSubGoal()
-            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3046, TARGET_ENE_0, 9999, 0, 0, 0, 0)
-        elseif SP_REAC==60022 then 
+        --elseif SP_REAC == 110010 then --sekiro ded interrupt
+            --arg2:ClearSubGoal()
+            --arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3046, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+        elseif SP_REAC==60022 and SEKIRO_HP>0 then 
             --this causes a bow pull-out reaction
             arg2:ClearSubGoal()
             local choose_follow=arg1:GetRandam_Int(1, 100)
@@ -702,7 +703,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
             else
             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3009, TARGET_ENE_0, 9999, 0, 0, 0, 0)    
             end
-        elseif SP_REAC == 60010 then --sekiro ran away interrupt
+        elseif SP_REAC == 60010 and SEKIRO_HP>0 then --sekiro ran away interrupt
             local distanceVAR=arg1:GetDist(TARGET_ENE_0)
             if distanceVAR>=4 then
             arg2:ClearSubGoal()
@@ -719,7 +720,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3019, TARGET_ENE_0, 9999, 0, 0, 0, 0)           
             end
             end
-        elseif SP_REAC == 60009 or SP_REAC ==60020 then --fp main interrupt
+        elseif (SP_REAC == 60009 or SP_REAC ==60020) and SEKIRO_HP>0 then --fp main interrupt
             local inter=arg1:GetRandam_Int(1, 100)
             local phase_left=arg1:GetNinsatsuNum()
             if arg1:GetDist(TARGET_ENE_0)>=3 then
@@ -756,7 +757,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
             end
         end
 
-        elseif SP_REAC ==60019 then --sakura dance interrupt(activates only in 2nd phase)
+        elseif SP_REAC ==60019 and SEKIRO_HP>0 then --sakura dance interrupt(activates only in 2nd phase)
             local phase=arg1:GetNinsatsuNum()
             if  phase==1 then
             local interrupt=arg1:GetRandam_Int(1, 100)
@@ -792,7 +793,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
             end
             end
         end
-        elseif SP_REAC == 5007 then --four arrow interrupt
+        elseif SP_REAC == 5007 and SEKIRO_HP>0 then --four arrow interrupt
             
             arg2:ClearSubGoal()
             if f26_local3>50 then
@@ -801,7 +802,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3038, TARGET_ENE_0, 9999, 0, 0, 0, 0)--chasing slice--added hyper armour 
             end
             
-        elseif SP_REAC == 60007 then --3006 attack type follow up
+        elseif SP_REAC == 60007 and SEKIRO_HP>0 then --3006 attack type follow up
             arg2:ClearSubGoal()
             local main_dec=arg1:GetRandam_Int(1,100) 
             if main_dec > 85 then  
@@ -842,7 +843,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
                 end
             end        
 
-        elseif SP_REAC == 60006 then --thrust downward interrupt
+        elseif SP_REAC == 60006 and SEKIRO_HP>0 then --thrust downward interrupt
             arg2:ClearSubGoal()
             local posture=arg1:GetSpRate(TARGET_SELF)
             local cancel_prob=arg1:GetRandam_Int(1, 100)
@@ -943,7 +944,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
              --   arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3062, TARGET_ENE_0, 9999, 0, 0, 0, 0)      
             --end
         end
-        elseif SP_REAC == 5006  then --elbow thrust
+        elseif SP_REAC == 5006 and SEKIRO_HP>0  then --elbow thrust
             arg2:ClearSubGoal()
             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3003, TARGET_ENE_0, 9999, 0, 0, 0, 0)
             local cancelAttck1=arg1:GetRandam_Int(1, 100)
@@ -976,7 +977,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
             else   
                 arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3044, TARGET_ENE_0, 9999, 0, 0, 0, 0)
             end   
-        elseif SP_REAC == 5004 then --mikiri interrupt
+        elseif SP_REAC == 5004 and SEKIRO_HP>0 then --mikiri interrupt
             arg2:ClearSubGoal()
             if f26_local3>70 then
             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3022, TARGET_ENE_0, 9999, 0, 0, 0, 0)
@@ -985,7 +986,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
             else
             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3020, TARGET_ENE_0, 9999, 0, 0, 0, 0)
             end
-        elseif SP_REAC == 5003 then --fp recoil
+        elseif SP_REAC == 5003 and SEKIRO_HP>0 then --fp recoil
             arg2:ClearSubGoal()
             local distanceVAR=arg1:GetDist(TARGET_ENE_0)
             local prob1=arg1:GetRandam_Int(1, 100)
@@ -1016,7 +1017,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
                 arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3062, TARGET_ENE_0, 9999, 0, 0, 0, 0)  
             end
         end
-    elseif SP_REAC == 60021  then --spicy interrupt
+    elseif SP_REAC == 60021 and SEKIRO_HP>0 then --spicy interrupt
         --This code is a interrupt for extra floating passage and should be called
         --only in phase 2 of the fight. 
         local phase_left=arg1:GetNinsatsuNum()
@@ -1052,7 +1053,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
     end
     end
     end
-    elseif SP_REAC == 60008  then --step-back interrupt
+    elseif SP_REAC == 60008 and SEKIRO_HP>0 then --step-back interrupt
         arg2:ClearSubGoal()
         local posture=arg1:GetSpRate(TARGET_SELF)
         if posture>0.6 then
@@ -1060,7 +1061,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
         else
             arg2:AddSubGoal(GOAL_COMMON_AttackImmediateAction, 3, 3039, TARGET_ENE_0, 9999, 0, 0, 0, 0)
         end
-        elseif SP_REAC == 5021  then --knockback interrupt
+        elseif SP_REAC == 5021 and SEKIRO_HP>0 then --knockback interrupt
             arg2:ClearSubGoal()
             local makeDec=arg1:GetDist(TARGET_ENE_0)
             local healthbars=arg1:GetNinsatsuNum()
@@ -1082,7 +1083,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
                 arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3014, TARGET_ENE_0, 9999, 0, 0, 0, 0)
                 arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3015, TARGET_ENE_0, 9999, 0, 0, 0, 0)
             end
-        elseif SP_REAC == 60000 or SP_REAC == 5005 then --3019 or chasing slice follow up, respectively
+        elseif (SP_REAC == 60000 or SP_REAC == 5005) and SEKIRO_HP>0 then --3019 or chasing slice follow up, respectively
             arg2:ClearSubGoal()
             local chance1=arg1:GetRandam_Int(1, 100)
             if  SP_REAC == 5005 and chance1 >= 65 then
@@ -1147,7 +1148,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
             end
         end
             end 
-        elseif SP_REAC == 60001  then
+        elseif SP_REAC == 60001 and SEKIRO_HP>0 then
             arg2:ClearSubGoal()
             local makeDec=arg1:GetRandam_Int(1,100)
             if makeDec>70 then
