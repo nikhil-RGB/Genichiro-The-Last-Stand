@@ -1474,7 +1474,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
         return arg0.ShootReaction(arg1, arg2)
     end
     if arg1:IsInterupt(INTERUPT_ActivateSpecialEffect) then
-        if f49_local0 == 5026 then
+        if f49_local0 == 5026 and SEKIRO_HP>0 then
             if f49_local2 <= 5.2 - arg1:GetMapHitRadius(TARGET_SELF) + 0.3 and f49_local3 <= 0 then
                 arg2:AddSubGoal(GOAL_COMMON_EndureAttack, 10, 3016, TARGET_ENE_0, 9999, 0, 0)
                 arg1:SetNumber(2, 0)

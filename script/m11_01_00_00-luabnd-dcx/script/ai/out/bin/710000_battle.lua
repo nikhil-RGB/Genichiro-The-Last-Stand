@@ -212,8 +212,8 @@ Goal.Activate = function (arg0, arg1, arg2)
 end
 
 Goal.Act43 = function (arg0, arg1, arg2)
-    arg0:SetTimer(2, 30)
-    arg1:AddSubGoal(GOAL_COMMON_AttackTunableSpin, 10, 3046, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+    --arg0:SetTimer(2, 30)
+    --arg1:AddSubGoal(GOAL_COMMON_AttackTunableSpin, 10, 3046, TARGET_ENE_0, 9999, 0, 0, 0, 0)
 
     GetWellSpace_Odds = 100
     return GetWellSpace_Odds
@@ -1056,7 +1056,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
     elseif SP_REAC == 60008 and SEKIRO_HP>0 then --step-back interrupt
         arg2:ClearSubGoal()
         local posture=arg1:GetSpRate(TARGET_SELF)
-        if posture>0.6 then
+        if posture>0.4 then
         arg2:AddSubGoal(GOAL_COMMON_AttackImmediateAction, 3, 3044, TARGET_ENE_0, 9999, 0, 0, 0, 0)
         else
             arg2:AddSubGoal(GOAL_COMMON_AttackImmediateAction, 3, 3039, TARGET_ENE_0, 9999, 0, 0, 0, 0)
