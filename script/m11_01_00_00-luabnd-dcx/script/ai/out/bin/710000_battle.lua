@@ -63,7 +63,7 @@ Goal.Activate = function (arg0, arg1, arg2)
 
     elseif arg1:GetNumber(7) == 0 and arg1:HasSpecialEffectId(TARGET_SELF, 200050) then
         act[15] = 600
-    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, 110030) then
+    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, 110030) and f2_local7==2 then
         act[28] = 100
     elseif arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_B, 180) then
         act[21] = 100
@@ -216,8 +216,7 @@ end
 
 Goal.Act43 = function (arg0, arg1, arg2)
     --arg0:SetTimer(2, 30)
-    --arg1:AddSubGoal(GOAL_COMMON_AttackTunableSpin, 10, 3046, TARGET_ENE_0, 9999, 0, 0, 0, 0)
-
+   -- arg1:AddSubGoal(GOAL_COMMON_AttackTunableSpin, 10, 3022, TARGET_ENE_0, 9999, 0, 0, 0, 0)
     GetWellSpace_Odds = 100
     return GetWellSpace_Odds
 end
@@ -680,13 +679,11 @@ Goal.Interrupt = function (arg0, arg1, arg2)
             return true
         elseif SP_REAC ==110030 then
          --REACTION TO SEKIRO RESURRECTING     
-         local phase_left=arg1:GetNinsatsuNum()
-         if phase_left==1 then
-            arg2:ClearSubGoal() 
-            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3022, TARGET_ENE_0, 9999, 0, 0, 0, 0)   
-         end
+         --   arg2:ClearSubGoal() 
+          --  arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3022, TARGET_ENE_0, 9999, 0, 0, 0, 0)   
+         
         elseif SP_REAC ==60027 and SEKIRO_HP>0 then
-            --REACTION TO SEKIRO RESURRECTING     
+            --REACTION TO SEKIRO PUNCHED     
             local phase_left=arg1:GetNinsatsuNum()
             if phase_left==1 then
                arg2:ClearSubGoal() 
@@ -715,8 +712,8 @@ Goal.Interrupt = function (arg0, arg1, arg2)
         elseif SP_REAC==60022 and SEKIRO_HP>0 then 
             --this causes a bow pull-out reaction
             arg2:ClearSubGoal()
-            local choose_follow=arg1:GetRandam_Int(1, 100)
-            if choose_follow>35 then
+            local choose_follow=arg1:GetNinsatsuNum()
+            if choose_follow==1 then
             arg2:AddSubGoal(GOAL_COMMON_AttackImmediateAction, 3, 3023, TARGET_ENE_0, 9999, 0, 0, 0, 0)
             else
             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3009, TARGET_ENE_0, 9999, 0, 0, 0, 0)    
@@ -1064,9 +1061,16 @@ Goal.Interrupt = function (arg0, arg1, arg2)
         elseif SP_REAC == 5004 and SEKIRO_HP>0 then --mikiri interrupt
             arg2:ClearSubGoal()
             if f26_local3>70 then
-            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3022, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+
+                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3035, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3029, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3009, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+                           
+            
             elseif f26_local3>50 then
-            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3026, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            
+                arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3022, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+
             else
             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3020, TARGET_ENE_0, 9999, 0, 0, 0, 0)
             end
@@ -1273,10 +1277,12 @@ Goal.Interrupt = function (arg0, arg1, arg2)
 
         else
             arg2:ClearSubGoal()--put anti-heal condition here
-            if f26_local2<=5 then
-            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3026, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            if f26_local2<=3 then
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3035, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            elseif f26_local2<=9 then
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3006, TARGET_ENE_0, 9999, 0, 0, 0, 0)
             else
-            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3038, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3038, TARGET_ENE_0, 9999, 0, 0, 0, 0)    
             end
             return true
             
@@ -1341,7 +1347,7 @@ Goal.Parry = function (arg0, arg1, arg2, arg3)
             end
         elseif arg0:HasSpecialEffectId(TARGET_ENE_0, 109980) then
             arg1:ClearSubGoal()
-            arg1:AddSubGoal(GOAL_COMMON_SpinStep, 1, 5201, TARGET_ENE_0, 0, AI_DIR_TYPE_B, 0)
+            arg1:AddSubGoal(GOAL_COMMON_SpinStep, 1, 3022, TARGET_ENE_0, 0, AI_DIR_TYPE_B, 0)
             return true
         elseif f27_local3 <= Get_ConsecutiveGuardCount(arg0) * arg2 then
             arg1:ClearSubGoal()
@@ -1400,9 +1406,8 @@ Goal.Damaged = function (arg0, arg1, arg2)
 end
 
 Goal.ShootReaction = function (arg0, arg1)
-    --arg1:ClearSubGoal()
-    --arg1:AddSubGoal(GOAL_COMMON_EndureAttack, 0.1, 3100, TARGET_ENE_0, 9999, 0)
-    arg1:AddSubGoal(GOAL_COMMON_EndureAttack, 3, 3038, TARGET_ENE_0, 9999, 0)
+    arg1:ClearSubGoal()
+    arg1:AddSubGoal(GOAL_COMMON_EndureAttack, 0.1, 3100, TARGET_ENE_0, 9999, 0)
     return true
     
 end

@@ -1546,7 +1546,8 @@ Goal.Interrupt = function (arg0, arg1, arg2)
     elseif f49_local0 == 5004 and SEKIRO_HP>0 then --mikiri interrupt
         arg2:ClearSubGoal()
         local f26_local3=arg1:GetRandam_Int(1,100)
-        if f26_local3>70 then
+        local posture=arg1:GetSpRate(TARGET_SELF)
+        if posture<0.5 then
         arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3046, TARGET_ENE_0, 9999, 0, 0, 0, 0)
         elseif f26_local3>50 then
             local decisionS=arg1:GetRandam_Int(1,100) 
