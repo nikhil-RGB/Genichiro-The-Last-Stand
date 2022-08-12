@@ -1513,7 +1513,9 @@ Goal.Interrupt = function (arg0, arg1, arg2)
             --may look unprofessional if player sprite dodges counterattack instead of standard parry/block
             --reaction.
             local rng=arg1:GetRandam_Int(1,100)
-            if rng>80 then
+            if arg1:GetSpRate(TARGET_SELF)<=0.4 then
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 3, 3046, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            elseif rng>80 then
             local dist=arg2:GetDist(TARGET_ENE_0)
             if dist>3 then
             arg2:ClearSubGoal()
