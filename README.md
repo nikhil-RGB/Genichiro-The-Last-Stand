@@ -16,6 +16,6 @@ I would highly recommend installing and playing the latest release <strong>only<
 
 * <a href="https://youtu.be/kC0x0xzESYg">Watch Promotional Video for Mod!</a>(cutscenes included, Genichiro:The Rival -->Older release)
   
-* <a href="https://youtu.be/C_cAQp_l6Gs">Watch Showcase video for Genichiro:The Rival(REMASTERED)v3.1.4</a>-->Newest Release
+* <a href="https://www.youtube.com/watch?v=StIhOhJrkc8">Watch Showcase video for Genichiro:The Rival(REMASTERED)v3.1.4.2.3</a>-->Newest Release
 
 
