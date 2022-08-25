@@ -109,3 +109,6 @@ System.NullReferenceException: Object reference not set to an instance of an obj
 
 
 [2022.08.25 16:05:59][WARNING] Unable to find the file '<Data Root>\chr\c7199.texbnd.dcx' in the main data root directory ('C:\Games\Sekiro - Shadows Die Twice\mods') or the directory in which that one is located.
+
+
+[2022.08.25 16:31:07][WARNING] Unable to find the file '<Data Root>\chr\c7199.texbnd.dcx' in the main data root directory ('C:\Games\Sekiro - Shadows Die Twice\mods') or the directory in which that one is located.

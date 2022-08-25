@@ -20,6 +20,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5029)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5030)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5031)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 60028)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 3710010)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 3710020)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 3710030)
@@ -909,6 +910,15 @@ Goal.Interrupt = function (arg0, arg1, arg2)
                 arg1:SetNumber(2, 0)
                 return true
             end
+        elseif f39_local0 == 60028 then  --fp-interrupt-->Mortal draw/dance
+            
+            arg2:ClearSubGoal()
+            local rng=arg1:GetRandam_Int(1,100)
+            if rng>50 then
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 10, 3085, TARGET_ENE_0, 6, 0, 0)
+            else
+            arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 10, 3027, TARGET_ENE_0, 6, 0, 0)
+            end
         elseif f39_local0 == 5029 then
             if arg1:HasSpecialEffectId(TARGET_SELF, 3711500) and f39_local2 >= 3 and f39_local2 <= 8 then
                 arg2:ClearSubGoal()
@@ -921,6 +931,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
                 arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 10, 3018, TARGET_ENE_0, 6, 0, 0)
                 return true
             end
+        
         elseif f39_local0 == 5031 then
             if f39_local2 <= 6.5 and f39_local3 <= 50 then
                 arg2:ClearSubGoal()
